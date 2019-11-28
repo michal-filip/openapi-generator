@@ -1,4 +1,4 @@
-import { exists, mapValues } from '../runtime';
+import { exists, mapValues, parseDate } from '../runtime';
 {{#hasImports}}
 import {
     {{#imports}}
@@ -63,10 +63,10 @@ export function {{classname}}FromJSONTyped(json: any, ignoreDiscriminator: boole
         {{#vars}}
         {{#isPrimitiveType}}
         {{#isDate}}
-        '{{name}}': {{^required}}!exists(json, '{{baseName}}') ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}'])),
+        '{{name}}': {{^required}}!exists(json, '{{baseName}}') ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}parseDate(json['{{baseName}}'])),
         {{/isDate}}
         {{#isDateTime}}
-        '{{name}}': {{^required}}!exists(json, '{{baseName}}') ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}'])),
+        '{{name}}': {{^required}}!exists(json, '{{baseName}}') ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}parseDate(json['{{baseName}}'])),
         {{/isDateTime}}
         {{^isDate}}
         {{^isDateTime}}
